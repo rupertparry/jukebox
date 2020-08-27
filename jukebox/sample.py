@@ -177,7 +177,7 @@ def load_codes(codes_file, duration, priors, hps):
 # Generate and save samples, alignment, and webpage for visualization.
 def save_samples(model, device, hps, sample_hps):
     print(hps)
-    from jukebox.lyricdict import poems, gpt_2_lyrics
+    # from jukebox.lyricdict import poems, gpt_2_lyrics
     vqvae, priors = make_model(model, device, hps)
 
     assert hps.sample_length//priors[-2].raw_to_tokens >= priors[-2].n_ctx, f"Upsampling needs atleast one ctx in get_z_conds. Please choose a longer sample length"
@@ -189,37 +189,12 @@ def save_samples(model, device, hps, sample_hps):
     # We used different label sets in our models, but you can write the human friendly names here and we'll map them under the hood for each model.
     # For the 5b/5b_lyrics model and the upsamplers, labeller will look up artist and genres in v2 set. (after lowercasing, removing non-alphanumerics and collapsing whitespaces to _).
     # For the 1b_lyrics top level, labeller will look up artist and genres in v3 set (after lowercasing).
-    metas = [dict(artist = "Alan Jackson",
-                  genre = "Country",
-                  lyrics = poems['ozymandias'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Joe Bonamassa",
-                  genre="Blues Rock",
-                  lyrics=gpt_2_lyrics['hottub'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Frank Sinatra",
-                  genre="Classic Pop",
-                  lyrics=gpt_2_lyrics['alone'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Ella Fitzgerald",
-                  genre="Jazz",
-                  lyrics=gpt_2_lyrics['count'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Céline Dion",
-                  genre="Pop",
-                  lyrics=gpt_2_lyrics['darkness'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             ]
+    
+    # === CUSTOM METAS CODE === #
+    from jukebox.uncanny_metas import metas_with
+    metas = metas_with(total_length, offset)
+    # ========================= #
+
     while len(metas) < hps.n_samples:
         metas.extend(metas)
     metas = metas[:hps.n_samples]
