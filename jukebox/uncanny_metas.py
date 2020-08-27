@@ -1,6 +1,7 @@
 from jukebox.lyricdict import custom
+offset = 81 # Offset in seconds
 
-def metas_with(total_length, offset):
+def metas_with(total_length):
 	return([dict(artist = "John Farnham",
                   genre = "Rock",
                   lyrics = custom['ytv_full'],

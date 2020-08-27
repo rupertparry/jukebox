@@ -1,16 +1,6 @@
 # Custom for Uncanny Valley
 custom = {
 'ytv_full': '''
-We have the chance to turn the pages over
-We can write what we want to write
-We gotta make ends meet, before we get much older
-We're all someone's daughter
-We're all someone's son
-How long can we look at each other
-Down the barrel of a gun?
-You're the voice, try and understand it
-Make a noise and make it clear
-Oh, whoa
 We're not gonna sit in silence
 We're not gonna live with fear
 Oh, whoa
