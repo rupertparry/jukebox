@@ -192,7 +192,7 @@ def save_samples(model, device, hps, sample_hps):
     
     # === CUSTOM METAS CODE === #
     from jukebox.uncanny_metas import metas_with
-    metas = metas_with(total_length, offset)
+    metas = metas_with(total_length)
     # ========================= #
 
     while len(metas) < hps.n_samples:
